@@ -62,7 +62,8 @@ class Binomial:
         coefficient = self._factorial(self.n) / (
             self._factorial(k) * self._factorial(self.n - k)
         )
-        pmf_value = coefficient * (self.p ** k) * ((1 - self.p) ** (self.n - k))
+        pmf_value = (coefficient * (self.p ** k) *
+                     ((1 - self.p) ** (self.n - k)))
         return pmf_value
 
     def cdf(self, k):

@@ -20,15 +20,16 @@ def determinant(matrix):
     if not isinstance(matrix, list):
         raise TypeError("matrix must be a list of lists")
 
+    # Check if matrix is empty list
+    if len(matrix) == 0:
+        raise TypeError("matrix must be a list of lists")
+
     # Check if all elements are lists
     for row in matrix:
         if not isinstance(row, list):
             raise TypeError("matrix must be a list of lists")
 
-    # Handle empty matrix case - [[]] is 0x0 matrix with det = 1
-    if len(matrix) == 0:
-        raise TypeError("matrix must be a list of lists")
-
+    # Handle 0x0 matrix case - [[]] has determinant 1
     if len(matrix) == 1 and len(matrix[0]) == 0:
         return 1
 
