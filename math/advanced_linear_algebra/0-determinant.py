@@ -1,0 +1,65 @@
+#!/usr/bin/env python3
+"""Module for calculating the determinant of a matrix."""
+
+
+def determinant(matrix):
+    """
+    Calculate the determinant of a matrix.
+
+    Args:
+        matrix: A list of lists whose determinant should be calculated
+
+    Returns:
+        The determinant of the matrix
+
+    Raises:
+        TypeError: If matrix is not a list of lists
+        ValueError: If matrix is not square
+    """
+    # Check if matrix is a list
+    if not isinstance(matrix, list):
+        raise TypeError("matrix must be a list of lists")
+
+    # Check if all elements are lists
+    for row in matrix:
+        if not isinstance(row, list):
+            raise TypeError("matrix must be a list of lists")
+
+    # Handle empty matrix case - [[]] is 0x0 matrix with det = 1
+    if len(matrix) == 0:
+        raise TypeError("matrix must be a list of lists")
+
+    if len(matrix) == 1 and len(matrix[0]) == 0:
+        return 1
+
+    # Check if matrix is square
+    n = len(matrix)
+    for row in matrix:
+        if len(row) != n:
+            raise ValueError("matrix must be a square matrix")
+
+    # Base case: 1x1 matrix
+    if n == 1:
+        return matrix[0][0]
+
+    # Base case: 2x2 matrix
+    if n == 2:
+        return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0]
+
+    # Recursive case: cofactor expansion along first row
+    det = 0
+    for j in range(n):
+        # Create submatrix by removing first row and column j
+        submatrix = []
+        for i in range(1, n):
+            row = []
+            for k in range(n):
+                if k != j:
+                    row.append(matrix[i][k])
+            submatrix.append(row)
+
+        # Add cofactor contribution
+        sign = (-1) ** j
+        det += sign * matrix[0][j] * determinant(submatrix)
+
+    return det
