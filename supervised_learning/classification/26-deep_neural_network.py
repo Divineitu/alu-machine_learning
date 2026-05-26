@@ -11,7 +11,7 @@ class DeepNeuralNetwork:
     """Deep neural network performing binary classification."""
 
     def __init__(self, nx, layers):
-        """Initialize the network with nx features and a list of layer sizes."""
+        """Initialize the network with nx features and layer sizes."""
         if not isinstance(nx, int):
             raise TypeError("nx must be an integer")
         if nx < 1:
