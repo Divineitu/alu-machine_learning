@@ -32,7 +32,7 @@ class BayesianOptimization:
             imp = mu - f_best - self.xsi
 
         Z = np.zeros_like(sigma)
-        mask = sigma != 0
+        mask = sigma > 0
         Z[mask] = imp[mask] / sigma[mask]
         EI = imp * norm.cdf(Z) + sigma * norm.pdf(Z)
         EI[~mask] = 0
@@ -44,7 +44,7 @@ class BayesianOptimization:
         """Optimize the black-box function and return the best (X, Y)."""
         for _ in range(iterations):
             X_next, _ = self.acquisition()
-            if np.any(self.gp.X == X_next):
+            if X_next in self.gp.X:
                 break
             Y_next = self.f(X_next)
             self.gp.update(X_next, Y_next)
